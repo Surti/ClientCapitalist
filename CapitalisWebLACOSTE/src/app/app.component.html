@@ -1,0 +1,131 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1">
+      <img [attr.src]="server+world.logo" width="45" height="45" />
+    </div>
+    <div class="col-md-3">
+      <span id="worldname"> {{title}} </span>
+    </div>
+    <div class="col-md-2">
+      <input type = "text" [(ngModel)]="username" (change)="onUsernameChanged()" />        
+    </div>
+    <div class="col-md-3">Argent :
+      <span id="worldname" [innerHTML]="world.money | bigvalue"> </span>
+    </div>
+    <div class="col-md-3">
+      <button id="multibuy" (click)="changeBuy()">Acheter {{buy}}</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <div class="buttonleft btn btn-primary btn-block"
+          data-toggle="modal" (click)="managersModal.show()">
+        <span class="badge">{{new}}</span> Managers
+      </div>
+      <div class="buttonleft btn btn-primary btn-block"
+          data-toggle="modal" (click)="cashUpgradeModal.show()">
+        <span class="badge">{{newCash}}</span> Upgrades
+      </div>
+      <div class="buttonleft btn btn-primary btn-block"
+          data-toggle="modal" (click)="unlockModal.show()">
+        <span class="badge">{{newUnlock}}</span> Unlocks
+      </div>
+    </div>
+    <div class="col-md-10">
+      <app-product [money]="world.money" [qtmulti]="buy" [prod]="world.products.product[0]" (notifyProduction)="onProductionDone($event)"
+        (onBuy)="onBuyDone($event)" class="product col-md-6"></app-product>
+      <app-product [money]="world.money" [qtmulti]="buy" [prod]="world.products.product[1]" (notifyProduction)="onProductionDone($event)"
+        (onBuy)="onBuyDone($event)" class="product col-md-6"></app-product>
+    </div>
+  </div>
+  <toaster-container></toaster-container>
+</div>
+
+<app-modal #managersModal>
+  <div class="app-modal-header">
+    <h4 class="modal-title"> Managers make you feel better !</h4>
+  </div>
+  <div class="app-modal-body">
+    <div *ngFor="let manager of world.managers.pallier">
+      <div *ngIf="manager.unlocked == false">
+        <div class="row">
+          <div class="col-md-3">
+              <img class="img-responsive" [attr.src]="server+manager.logo" width="150" height="150"/>
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                  <span id="mangagerName"> {{manager.name}}</span>
+                </div>
+                <div class="col-md-6">
+                  <span id="mangagerSueil"> {{manager.seuil}} €</span>
+                </div>
+                <div class="col-md-5">
+                  <span id="mangagerProduit">{{world.products.product[manager.idcible-1].name}}</span>
+                </div>
+                <div class="col-md-4 col-md-offset-8">
+                  <button type="button" [disabled]="manager.seuil > world.money"  class="btn btn-default btn-block" (click)="buyManager(manager)">
+                    Hire !
+                  </button>
+                </div>
+            </div>   
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-default" (click)="managersModal.hide()">
+      Close
+    </button>
+  </div>
+</app-modal>
+
+<app-modal #cashUpgradeModal>
+    <div class="app-modal-header">
+      <h4 class="modal-title"> CashUpgrades make you re game better !</h4>
+    </div>
+    <div class="app-modal-body">
+      <div *ngFor="let upgrade of world.upgrades.pallier">
+        <div *ngIf="upgrade.unlocked == false">
+          <div class="row">
+            <div class="col-md-3">
+                <img class="img-responsive" [attr.src]="server+upgrade.logo" width="150" height="150"/>
+            </div>
+            <div class="col-md-9">
+              <div class="row">
+                  <div class="col-md-6">
+                    <span id="upgradeName"> {{upgrade.name}}</span>
+                  </div>
+                  <div class="col-md-6">
+                    <span id="upgradeSueil"> {{upgrade.seuil}} €</span>
+                  </div>
+                  <div *ngIf="upgrade.idcible == 0 ;else other_content">
+                      <div class="col-md-5">
+                          <span id="upgradeProduit">all {{upgrade.typeratio}} x {{upgrade.ratio}}</span>
+                      </div>
+                  </div>
+                  
+                  <ng-template #other_content>
+                      <div class="col-md-5">
+                          <span id="upgradeProduit">{{world.products.product[upgrade.idcible-1].name}} {{upgrade.typeratio}} x {{upgrade.ratio}}</span>
+                        </div>
+                  </ng-template>
+
+                  <div class="col-md-4 col-md-offset-8">
+                    <button type="button" [disabled]="upgrade.seuil > world.money"  class="btn btn-default btn-block" (click)="buyUpgrade(upgrade)">
+                      Buy !
+                    </button>
+                  </div>
+              </div>   
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="app-modal-footer">
+      <button type="button" class="btn btn-default" (click)="managersModal.hide()">
+        Close
+      </button>
+    </div>
+  </app-modal>
