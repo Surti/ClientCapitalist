@@ -1,0 +1,46 @@
+.btn {
+    padding: 10px 20px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+ 
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+ 
+.btn-primary {
+    background: #663300;
+    color: #ffffff;
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: green ;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: green;
+    box-shadow: none;
+}
+
+.btn-primary.raised:active, .btn-primary.raised.active {
+	background: green;
+	box-shadow: none;
+	margin-bottom: -3px;
+	margin-top: 3px;
+}
+
+.logo{
+    position : relative;
+}
+
+.area1 {
+    position : absolute;
+}
+
+.fond {
+    background-color: whitesmoke;
+    opacity: 0.95;
+
+}

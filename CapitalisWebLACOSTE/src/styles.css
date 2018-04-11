@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color:rgb(9, 77, 3);
+  background-image:url(background.jpg);
+  background-size : cover;
+  color :  #663300;
+  font-weight: bold;
+  text-align: center;
+  }
+
 .round {        
      width: 100px;    
      height: 100px;       
@@ -16,11 +25,11 @@
       bottom: -10px; 
 }
 
-            
+   /*         
     * {                
         border: 1px solid black;          
       } 
-
+   */
       .modal-body {
         max-height: calc(100vh - 210px);
         overflow-y: auto;

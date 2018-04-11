@@ -45,7 +45,7 @@ export class ProductComponent implements OnInit {
   @Output() onBuy: EventEmitter<number> = new EventEmitter<number>();
 
   ngOnInit() {
-    this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, { strokeWidth: 50, color: '#00ff00' }); 
+    this.progressbar = new ProgressBar.Line(this.progressBarItem.nativeElement, { strokeWidth: 50, color: '#663300' }); 
     setInterval(() => { this.calcScore(); this.recalculate(); }, 100); 
     console.log(this.product); 
   }
